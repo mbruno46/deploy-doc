@@ -36,6 +36,7 @@ runs:
         git config --global user.name "${{ github.actor }}"
         git add .
         git commit -m 'Rebuilt documentation'
-        git remote add origin git@github.com:${{ inputs.repository }}.git
+        git remote add origin https://${{ github.actor }}:${{ github.token }}@github.com/${{ inputs.repository }}.git
+        git config --global --list
         git push --force origin master:${{ inputs.doc-branch }}
       shell: bash
