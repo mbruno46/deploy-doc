@@ -14,6 +14,7 @@ runs:
     - name: 'Install Sphinx'
       run: |
         pip install sphinx
+      shell: bash
     - name: 'Build Doc'
       run: |
         cd ${{ inputs.source-dir }}
