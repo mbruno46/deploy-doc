@@ -2,7 +2,7 @@ name: 'deploy-sphinx-doc'
 description: 'Deploy Python documentation generated with Sphinx'
 inputs:
   repository:
-    description: 'Repository name with owner'
+    description: 'Repository name with owner, e.g. mbruno46/chiexp'
     default: ${{ github.repository }}
   ref:
     description: >
@@ -23,13 +23,14 @@ runs:
       run: |
         pip install sphinx
       shell: bash
-    - name: 'Build Doc'
+    - name: 'Build/Deploy Doc'
       run: |
         cd ${GITHUB_REPOSITORY#*/}/${{ inputs.path }}
         make html
-      shell: bash
-    - name: 'Deploy'
-      run: |
-        cd ${GITHUB_REPOSITORY#*/}
-        git push origin `git subtree split --prefix ${{ inputs.path }}/build/html ${{ inputs.ref }}`:${{ inputs.doc-branch }} --force
+        cd build/html
+        git init
+        git add .
+        git commit -m 'Rebuilt documentation'
+        git remote add origin git@github.com:${{ inputs.repository }}.git
+        git push --force origin master:${{ inputs.doc-branch }}
       shell: bash
