@@ -25,11 +25,11 @@ runs:
       shell: bash
     - name: 'Build Doc'
       run: |
-        cd ${{ inputs.repository }}/${{ inputs.path }}
+        cd ${{ github.workspace }}/${{ inputs.path }}
         make html
       shell: bash
     - name: 'Deploy'
       run: |
-        cd ${{ inputs.repository }}
+        cd ${{ github.workspace }}
         git push origin `git subtree split --prefix ${{ inputs.path }}/build/html ${{ inputs.ref }}`:${{ inputs.doc-branch }} --force
       shell: bash
