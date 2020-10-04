@@ -10,7 +10,7 @@ inputs:
       triggered a workflow, this defaults to the reference or SHA for that
       event.  Otherwise, uses the default branch.
   path: 
-    description: 'Relative path under ${{ github.repository }} with documentation source files'
+    description: 'Relative path in the repository with documentation source files'
     required: true
   doc-branch:
     description: 'Target branch for documentation deployment'
