@@ -2,7 +2,7 @@ name: 'deploy-sphinx-doc'
 description: 'Deploy Python documentation generated with Sphinx'
 inputs:
   repository:
-    description: 'Repository name with owner
+    description: 'Repository name with owner'
     default: ${{ github.repository }}
   ref:
     description: >
