@@ -59,7 +59,7 @@ jobs:
       - name: Deploy
         uses: mbruno46/deploy-sphinx-doc@v0.1
         with:
-          source-dir: doc
+          path: doc
           doc-branch: 'gh-pages'
 ```
 
