@@ -19,6 +19,9 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: 'Print github context'
+      run: echo $GITHUB_CONTEXT
+      shell: bash
     - name: 'Install Sphinx'
       run: |
         pip install sphinx
@@ -29,6 +32,8 @@ runs:
         make html
         cd build/html
         git init
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git config --global user.name "${{ github.actor }}"
         git add .
         git commit -m 'Rebuilt documentation'
         git remote add origin git@github.com:${{ inputs.repository }}.git
