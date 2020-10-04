@@ -13,12 +13,12 @@ runs:
   steps:
     - name: 'Install Sphinx'
       run: |
-	pip install sphinx
+        pip install sphinx
     - name: 'Build Doc'
       run: |
-	cd ${{ inputs.source-dir }}
-	make html
+        cd ${{ inputs.source-dir }}
+        make html
     - name: 'Deploy'
       run: |
-	cd ${{ inputs.source-dir }}
-	git push origin `git subtree split --prefix ./build/html master`:${{ inputs.doc-branch }} --force
+        cd ${{ inputs.source-dir }}
+        git push origin `git subtree split --prefix ./build/html master`:${{ inputs.doc-branch }} --force
