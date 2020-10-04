@@ -1,6 +1,8 @@
 name: 'deploy-sphinx-doc'
 description: 'Deploy Python documentation generated with Sphinx'
 inputs:
+  repository: #
+    required: true
   source-dir: #
     description: 'directory with source rst files'
     required: true
@@ -17,11 +19,12 @@ runs:
       shell: bash
     - name: 'Build Doc'
       run: |
+        cd ${{ inputs.repository }}
         cd ${{ inputs.source-dir }}
         make html
       shell: bash
     - name: 'Deploy'
       run: |
-        cd ${{ inputs.source-dir }}
-        git push origin `git subtree split --prefix ./build/html master`:${{ inputs.doc-branch }} --force
+        cd ${{ inputs.repository }}
+        git push origin `git subtree split --prefix ${{ inputs.source-dir }}/build/html master`:${{ inputs.doc-branch }} --force
       shell: bash
