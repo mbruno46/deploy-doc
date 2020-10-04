@@ -1,13 +1,19 @@
 name: 'deploy-sphinx-doc'
 description: 'Deploy Python documentation generated with Sphinx'
 inputs:
-  repository: #
+  repository:
+    description: 'Repository name with owner
+    default: ${{ github.repository }}
+  ref:
+    description: >
+      The branch, tag or SHA to checkout. When checking out the repository that
+      triggered a workflow, this defaults to the reference or SHA for that
+      event.  Otherwise, uses the default branch.
+  path: 
+    description: 'Relative path under ${{ github.repository }} with documentation source files'
     required: true
-  source-dir: #
-    description: 'directory with source rst files'
-    required: true
-  doc-branch: #
-    description: 'git branch for documentation deployment'
+  doc-branch:
+    description: 'Target branch for documentation deployment'
     required: true
     default: 'gh-pages'
 runs:
@@ -19,12 +25,11 @@ runs:
       shell: bash
     - name: 'Build Doc'
       run: |
-        cd ${{ inputs.repository }}
-        cd ${{ inputs.source-dir }}
+        cd ${{ inputs.repository }}/${{ inputs.path }}
         make html
       shell: bash
     - name: 'Deploy'
       run: |
         cd ${{ inputs.repository }}
-        git push origin `git subtree split --prefix ${{ inputs.source-dir }}/build/html master`:${{ inputs.doc-branch }} --force
+        git push origin `git subtree split --prefix ${{ inputs.path }}/build/html ${{ inputs.ref }}`:${{ inputs.doc-branch }} --force
       shell: bash
