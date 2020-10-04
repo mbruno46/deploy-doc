@@ -1,2 +1,2 @@
-# deploy-doc
-Action for automatic deployment of documentation
+# deploy-sphinx-doc
+Action for automatic deployment of Python documentation generated with Sphinx
