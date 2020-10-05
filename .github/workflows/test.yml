@@ -1,0 +1,31 @@
+name: Test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Clone repository
+	uses: actions/checkout@v2
+
+      - name: Setup python
+	uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+          architecture: x64
+
+      - name: Setup dummy doc
+	run: |
+	  pip install sphinx
+	  cd deploy-sphinx-doc
+	  mkdir dummy-doc
+	  cd dummy-doc
+	  sphinx-quickstart --quiet --project=dummy --author=myself -v v1
+	  
+      - name: Test action
+	uses: ./
+	with:
+	  path: dummy-doc
+	  doc-branch: test-doc
