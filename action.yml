@@ -21,8 +21,8 @@ runs:
   steps:
     - name: 'Set env vars'
       run: |
-        echo ::set-env name=REMOTE::"https://${{ github.actor }}:${{ github.token }}@github.com/${{ inputs.repository }}.git"
-        echo ::set-env name=REPO::${GITHUB_REPOSITORY#*/}
+        echo "REMOTE=https://${{ github.actor }}:${{ github.token }}@github.com/${{ inputs.repository }}.git" >> $GITHUB_ENV
+        echo "REPO=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       shell: bash
     - name: 'Install Sphinx'
       run: |
@@ -32,7 +32,7 @@ runs:
       run: |
         cd ${REPO}/${{ inputs.path }}
         make html
-        cd build/html
+        cd _build/html
         git init
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
         git config --global user.name "${{ github.actor }}"
