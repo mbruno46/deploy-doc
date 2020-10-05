@@ -19,8 +19,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: 'Print github context'
-      run: echo $GITHUB_CONTEXT
+    - name: 'Set env vars'
+      run: |
+        echo ::set-env name=REMOTE::"https://${{ github.actor }}:${{ github.token }}@github.com/${{ inputs.repository }}.git"
+        echo ::set-env name=REPO::${GITHUB_REPOSITORY#*/}
       shell: bash
     - name: 'Install Sphinx'
       run: |
@@ -28,7 +30,7 @@ runs:
       shell: bash
     - name: 'Build/Deploy Doc'
       run: |
-        cd ${GITHUB_REPOSITORY#*/}/${{ inputs.path }}
+        cd ${REPO}/${{ inputs.path }}
         make html
         cd build/html
         git init
@@ -36,7 +38,7 @@ runs:
         git config --global user.name "${{ github.actor }}"
         git add .
         git commit -m '[deploy-sphinx-doc] publishing documentation'
-        git remote add origin https://${{ github.actor }}:${{ github.token }}@github.com/${{ inputs.repository }}.git
+        git remote add origin ${REMOTE}
         git config --global --list
         git push --force origin master:${{ inputs.doc-branch }}
       shell: bash
