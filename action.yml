@@ -26,7 +26,7 @@ runs:
       shell: bash
     - name: 'Install Sphinx'
       run: |
-        pip install sphinx
+        pip install sphinx nbsphinx
       shell: bash
     - name: 'Build/Deploy Doc'
       run: |
