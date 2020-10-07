@@ -26,6 +26,7 @@ runs:
       shell: bash
     - name: 'Install Sphinx'
       run: |
+        sudo apt-get install pandoc
         pip install sphinx nbsphinx IPython pandoc
       shell: bash
     - name: 'Build/Deploy Doc'
