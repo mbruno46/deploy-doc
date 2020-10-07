@@ -15,7 +15,11 @@ Action for automatic deployment of Python documentation generated with Sphinx.
 
   the target branch used to publish the documentation. Make sure to turn on github pages
   in your repository settings, and use this branch as host. 
+
+- `pypackages` (optional, default = `''`)
   
+  additional python packages useful to build the documentation, such as `nbsphinx`.
+
 **Note:** the `Makefile` generated from `sphinx-quickstart` can be modified except for 
 the following three lines
 

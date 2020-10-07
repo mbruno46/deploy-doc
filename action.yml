@@ -16,6 +16,9 @@ inputs:
     description: 'Target branch for documentation deployment'
     required: true
     default: 'gh-pages'
+  pypackages:
+    description: 'Additional python packages needed to build the documentation, likee nbsphinx'
+    default: ''
 runs:
   using: "composite"
   steps:
@@ -26,8 +29,7 @@ runs:
       shell: bash
     - name: 'Install Sphinx'
       run: |
-        sudo apt-get install pandoc
-        pip install sphinx nbsphinx IPython pandoc
+        pip install sphinx ${{ inputs.pypackages }}
       shell: bash
     - name: 'Build/Deploy Doc'
       run: |
