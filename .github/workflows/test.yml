@@ -24,7 +24,7 @@ jobs:
           sphinx-quickstart --quiet --project=dummy --author=myself -v v1
 
       - name: Test action
-        uses: ./deploy-sphinx-doc
+        uses: ./
         with:
           path: dummy-doc
           doc-branch: test-doc
