@@ -78,5 +78,7 @@ jobs:
           doc-branch: 'gh-pages'
 ```
 
-**Note:** make sure to checkout your repository and setup the python environment
-as above.
+**Note:** make sure to checkout your repository and setup the python environment.
+
+**Note:** if you use the field `path` within the checkout action you should make sure that
+the field `path` inside deploy action is matched accordingly.
