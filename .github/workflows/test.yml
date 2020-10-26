@@ -9,8 +9,6 @@ jobs:
 
       - name: Clone repository
         uses: actions/checkout@v2
-        with:
-          path: deploy-sphinx-doc
 
       - name: Setup python
         uses: actions/setup-python@v2
@@ -21,7 +19,6 @@ jobs:
       - name: Setup dummy doc
         run: |
           pip install sphinx
-          cd deploy-sphinx-doc
           mkdir dummy-doc
           cd dummy-doc
           sphinx-quickstart --quiet --project=dummy --author=myself -v v1
